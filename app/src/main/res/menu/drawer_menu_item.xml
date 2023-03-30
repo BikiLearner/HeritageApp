@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="@string/home"/>
+    <item android:id="@+id/infrastructure"
+        android:icon="@drawable/infra"
+        android:title="@string/infrastructure"/>
+    <item android:id="@+id/training_placement"
+        android:icon="@drawable/training"
+        android:title="@string/training_and_placement"/>
+    <item android:id="@+id/library"
+        android:icon="@drawable/library"
+        android:title="@string/library"/>
+    <item android:id="@+id/downloads"
+        android:icon="@drawable/download_3q462pplfb24"
+        android:title="@string/download"/>
+</menu>
+

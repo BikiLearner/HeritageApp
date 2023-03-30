@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="10dp"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/image_rv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_view_rv"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/imageview_for_recycylar_view"
+        app:layout_constraintTop_toTopOf="parent"/>
+</androidx.cardview.widget.CardView>

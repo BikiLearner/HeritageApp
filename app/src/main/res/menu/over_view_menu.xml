@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_busTracking"
+
+        android:title="Bus Tracking" />
+    <item
+        android:id="@+id/nav_kidsWallet"
+
+        android:title="Kids' Wallet" />
+
+    <item
+        android:id="@+id/nav_circlals"
+
+        android:title="Circulars" />
+
+    <item
+        android:id="@+id/nav_message"
+
+        android:title="Messages" />
+
+    <item
+        android:id="@+id/nav_accountSettingd"
+
+        android:title="s" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Log Out" />
+
+</menu>

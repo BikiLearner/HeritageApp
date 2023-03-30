@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">Hritage</string>
+    <string name="imageview_for_recycylar_view">imageView For Recycylar view</string>
+    <string name="heritage_logo">heritage_logo</string>
+    <string name="heritage_institute_of_technology">Heritage Institute Of Technology</string>
+    <string name="admission_enquiry">Admission Enquiry</string>
+    <string name="about_hit">About Hit</string>
+    <string name="academics">Academics</string>
+    <string name="admission">Admission</string>
+    <string name="infrastructure">Infrastructure</string>
+    <string name="training_and_placement">Training And Placement</string>
+    <string name="library">Library</string>
+    <string name="OpenDrawer">Open navigation drawer</string>
+    <string name="CloseDrawer">Close navigation drawer</string>
+    <string name="online_enquiry_for_b_tech_admission_2025">Online Enquiry For B-tech Admission 2025</string>
+    <string name="online_facilities_for_student">Online Facilities For Student</string>
+    <string name="class_routines">Class Routines</string>
+    <string name="semester_form_fill_up">Semester Form Fill Up</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="h_k_chaudhary">H.K.Chaudhary</string>
+    <string name="chairman_1_kbt_message_from">" Message from the Chairman, KBT"</string>
+    <string name="chairman_2_kbt_message_from">Message from the Secretary, KBT</string>
+    <string name="chairman_2_kbt_message">Congratulations on choosing Heritage Institute of Technlogy, Kolkata as a guiding institution in your quest for Higher education. This is one of the most important decisions of your life and will surely go a long way in preparing you for a bright future ahead. I do hope that this decision of yours opens up the door to a lifetime of opportunities for self growth and service to others. How fruitful your decision turns out to be, will depend primarily on the efforts you invest in your own intellectual, professional and social development. My advice to you will be - invest wisely and be assured tthat the HITK faculty and staff are behind you in all your efforts.  The institution is committed to creating an ambience for nurturing innovation, creativity and excellence in students.  I am convinced that each of you graduating from HITK will leave your indelible mark of success in whichever sphere of life you choose to be and I fervently hope that your desire to do well for the benefit of humanity only increases with your successes in life.</string>
+    <string name="sajjan_bhajanka">Sajjan Bhajanka</string>
+    <string name="chairman_3_kbt_message_from">Message from the Chairman, Board of Governors,  HIT-K</string>
+    <string name="chairman_3_kbt_message">It is my Pleasure to welcome you to the Heritage family! I am sure that the next few years here will be an enriching experience for you.  Our endeavour is to provide students like you the best possible learning experience. Our team of highly qualified teachers, supported by State-of-the-art laboratory equipments, library and classrooms are all heared to ensure tthat you receive all the very best facilities a student deserves.  In keeping with the Vision and Mission of Kalyan Bharti Trust, we make every effort to put equal stress of co-curricular activities for the all-round development of Mind, Body and Soul so that you develop into global citizens, while retaining our traditional values.  It is a matter of great pride for me and the Heritage family that our students have been achieving outstanding results both in academics as well as beyond academics. I sincerely hope that you, as a member of tthe new batch of students, will put in your best to take this outstanding performance to even greater heights.  I wish each one of you a rewarding and enjoyable experience at Heritage Institute of Technology.</string>
+    <string name="p_r_agarwala">P.R.Agarwala</string>
+    <string name="chairman_4_kbt_message_from">Message from the Principal, HIT-K</string>
+
+    <string name="basab_chaudhuri">Basab Chaudhuri</string>
+    <string name="vision">VISION</string>
+
+
+    <string name="home">Home</string>
+    <string name="profile">profile</string>
+    <string name="events">Events</string>
+    <string name="college_roll">College Roll</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="notice">Notice</string>
+    <string name="new_user_register_now">New user? Register Now</string>
+
+    <!--    share preference keys-->
+    <string name="login_email_hint">login_email_hint</string>
+    <string name="login_password_hint">login_password_hint</string>
+    <string name="login">Login</string>
+    <string name="back_to_nhome">Back to\nHome</string>
+    <string name="mobile">Mobile</string>
+    <string name="account_info">Account Info</string>
+    <string name="online_fee_payment">Online Fee Payment</string>
+    <string name="hit_library_web_opac">HIT Library Web OPAC</string>
+    <string name="e_clearance_form">e-Clearance Form</string>
+    <string name="e_clearance_status">e-clearance Status</string>
+    <string name="online_facility_for_student">Online Facility For Student</string>
+    <string name="graduation_ceremony_pictures">Graduation Ceremony pictures - 2020</string>
+    <string name="know_your_login_details">Know your Login Details</string>
+    <string name="download_admission_letter">Download Admission Letter</string>
+    <string name="autonomy_roll_1st_year_and_for_2nd_year_lateral_only">Autonomy Roll. (1st year and for 2nd year lateral Only)</string>
+    <string name="online_student_login">Online Student Login</string>
+    <string name="graduation_ceremony_pictures_2022">Graduation Ceremony pictures - 2022</string>
+    <string name="email">Email</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="roll">Roll</string>
+    <string name="address">Address</string>
+    <string name="date_of_birth">Date Of birth</string>
+    <string name="h">H</string>
+    <string name="i">I</string>
+    <string name="t">T</string>
+    <string name="k">k</string>
+    <string name="open_website_to_download_notice">Open website to download Notice</string>
+    <string name="quick_link">Quick Link</string>
+    <string name="no_previous_notice_present_please_search_website_to_download">no previous notice present please search website to download</string>
+    <string name="download">Download</string>
+    <string name="search_articles_hint">Routine Dept Name</string>
+    <string name="no_search_results_found">No search result found!</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="use_other_methods">Use other Methods</string>
+    <string name="register">Register</string>
+    <string name="here_s_nyour_first_nstep_with_nus">Here’s\nyour first\nstep with \nus!</string>
+    <string name="google">Goodle</string>
+    <string name="facebook">facebook</string>
+    <string name="sidebackbutton">sideBackButton</string>
+    <string name="jff">JFF</string>
+    <string name="enter_your_name">Enter your Name</string>
+    <string name="enter_your_college_id">Enter Your College Id</string>
+    <string name="enter_your_college_roll">Enter your college Roll</string>
+    <string name="enter_your_mobile_number">Enter Your Mobile Number</string>
+
+</resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "970409799937",
+    "project_id": "heritage-7a4ac",
+    "storage_bucket": "heritage-7a4ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970409799937:android:5fe57ad9d1eb188e5ceb00",
+        "android_client_info": {
+          "package_name": "com.example.hritage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970409799937-gcksl7b49jjggnaa58e10n3fro94rs01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI6YbKv7FzT-9Yv7NK088oGiq1ioq3YKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970409799937-gcksl7b49jjggnaa58e10n3fro94rs01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
