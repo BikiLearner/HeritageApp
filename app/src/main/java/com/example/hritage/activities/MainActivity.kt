@@ -10,9 +10,11 @@ import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.hritage.Constant
@@ -22,7 +24,9 @@ import com.example.hritage.databinding.ActivityMainBinding
 import com.example.hritage.frag.DocListFrag
 import com.example.hritage.frag.HomeScreenFragment
 import com.example.hritage.model.ListOfDataFromWebModel
+import com.example.hritage.model.TheProfileModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -83,26 +87,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun profileCode() {
-        val profileFlag = sharedPreferences.getInt(Constant.PROFILEFLAG, 0)
-        if (profileFlag == 1) {
-            if (isUsingNightModeResources()) {
-                binding?.profileButton?.setImageResource(R.drawable.profile_night)
-            } else {
-                binding?.profileButton?.setImageResource(R.drawable.profile)
-            }
-            binding?.profileButton?.setOnClickListener {
-                val intent = Intent(this@MainActivity, Profile::class.java)
-                startActivity(intent)
-            }
-        } else if (profileFlag == 0) {
-            binding?.profileButton?.setImageResource(R.drawable.login_icon)
-            binding?.profileButton?.setOnClickListener {
-                val intent = Intent(this@MainActivity, Login::class.java)
-                startActivity(intent)
-            }
-        }
-    }
 
     private fun toolBarFunctio() {
         setSupportActionBar(binding?.customToolBar)
@@ -136,17 +120,23 @@ class MainActivity : AppCompatActivity() {
             R.id.home_button -> {
                 loadFragment(HomeScreenFragment(), 1, false, "")
                 fragNo = 1
+                binding?.customToolBar?.title="Home"
             }
             R.id.notice_button -> {
                 loadFragment(DocListFrag(), 1, true, Constant.NOTICEPDFS)
+                binding?.customToolBar?.title="Notices"
+                fragNo = 2
             }
-            R.id.events -> {
+            R.id.result_list-> {
+                loadFragment(DocListFrag(), 1, true, Constant.RESULTLINKS)
                 Toast.makeText(this@MainActivity, "Events TODO Later", Toast.LENGTH_LONG).show()
                 fragNo = 3
+                binding?.customToolBar?.title="Result Links"
             }
             R.id.quickLinks -> {
                 loadFragment(DocListFrag(), 1, true, Constant.QUICKLIST)
                 fragNo = 4
+                binding?.customToolBar?.title="Quick Links"
             }
 
         }
@@ -158,6 +148,7 @@ class MainActivity : AppCompatActivity() {
             R.id.home -> {
                 loadFragment(HomeScreenFragment(), 1, false, "")
                 fragNo = 1
+                binding?.customToolBar?.title="Home"
             }
             R.id.infrastructure -> {
                 Toast.makeText(this@MainActivity, "infrastructure TODO Later", Toast.LENGTH_LONG).show()
@@ -168,10 +159,12 @@ class MainActivity : AppCompatActivity() {
             R.id.library -> {
                 loadFragment(DocListFrag(), 1, true, Constant.LIBRARYLIST)
                 fragNo=5
+                binding?.customToolBar?.title="Library"
             }
             R.id.downloads -> {
                 loadFragment(DocListFrag(), 1, true, Constant.DOWNLOADLIST)
                 fragNo=6
+                binding?.customToolBar?.title="Download List"
             }
         }
         binding?.drawerLayout?.closeDrawer(GravityCompat.START)
@@ -181,8 +174,10 @@ class MainActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment, flag: Int, sendData: Boolean, extraData: String) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        if (flag == 0 && !sendData)
+        if (flag == 0 && !sendData) {
             fragmentTransaction.add(R.id.container, fragment)
+            binding?.customToolBar?.title="Home"
+        }
         else if (flag != 0 && !sendData)
             fragmentTransaction.replace(R.id.container, fragment)
         else if (flag != 0 && sendData) {
@@ -218,6 +213,8 @@ class MainActivity : AppCompatActivity() {
             saveDataName(model3,Constant.LIBRARYLIST)
             val model4= GetDataFromWeb().getClassesRoutineFromWeb()
             saveDataName(model4,Constant.ROUTINELIST)
+            val model5= GetDataFromWeb().getResultLinksFromWeb()
+            saveDataName(model5,Constant.RESULTLINKS)
         }
     }
 

@@ -79,7 +79,8 @@ class HomeScreenFragment : Fragment() {
     private fun prrSemesterResult(view: View) {
         val cvOnlineFacility=view.findViewById<MaterialButton>(R.id.prr_sem_res_btn)
         cvOnlineFacility.setOnClickListener {
-            openInWebBroweser("http://136.232.2.202:8084/stud23or.aspx")
+            openWebActivity("http://136.232.2.202:8084/stud23or.aspx")
+
         }
     }
 
@@ -120,7 +121,7 @@ class HomeScreenFragment : Fragment() {
         val cvOnlineFacility=view.findViewById<MaterialButton>(R.id.odd_sem_res_btn)
         cvOnlineFacility.setOnClickListener {
             getDataFromJson()
-            openInWebBroweser("http://136.232.2.202:8084/stud23o.aspx")
+            openWebActivity("http://136.232.2.202:8084/stud23o.aspx")
         }
     }
     private fun getDataFromJson() {

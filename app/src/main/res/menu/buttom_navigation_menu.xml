@@ -8,9 +8,9 @@
         android:icon="@drawable/notice_board"
         android:title="@string/notice" />
 
-    <item android:id="@+id/events"
+    <item android:id="@+id/result_list"
         android:icon="@drawable/events"
-        android:title="@string/events" />
+        android:title="@string/results_link" />
     <item android:id="@+id/quickLinks"
         android:icon="@drawable/quick_link"
         android:title="@string/quick_link" />

@@ -14,6 +14,7 @@ object Constant {
     const val SAVETHEPROFILEIMAGE="save the profile image"
     const val LIBRARYLIST="list of library data"
     const val ROUTINELIST="list of routine"
+    const val RESULTLINKS="Result links"
 
 
 }

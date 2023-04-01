@@ -16,6 +16,7 @@ import com.example.hritage.model.ListOfDataFromWebModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.*
+import kotlin.collections.ArrayList
 
 class RoutineListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -45,6 +46,7 @@ class RoutineListActivity : AppCompatActivity() {
 
         val filteredList = ArrayList<String>()
         val filteredList2 = ArrayList<String>()
+        val filteredList3 = ArrayList<String>()
         Log.i("hero","in this function"+model?.nameOfContent!!.size)
         // Loop through each item in list
         for (i in 0 until model?.nameOfContent!!.size) {
@@ -55,7 +57,7 @@ class RoutineListActivity : AppCompatActivity() {
             // Before checking string matching convert string to lower case.
         }
 
-        return ListOfDataFromWebModel(filteredList, filteredList2,model!!.drawableId)
+        return ListOfDataFromWebModel(filteredList, filteredList2,model!!.drawableId, ArrayList())
     }
 
     private fun filterWithQuery(query: String) {
@@ -90,7 +92,7 @@ class RoutineListActivity : AppCompatActivity() {
         return if (json != null && json.isNotEmpty()) {
             gson.fromJson(json,ListOfDataFromWebModel::class.java)
         }else{
-            ListOfDataFromWebModel(ArrayList(),ArrayList(),model!!.drawableId)
+            ListOfDataFromWebModel(ArrayList(),ArrayList(),model!!.drawableId,ArrayList())
         }
     }
 

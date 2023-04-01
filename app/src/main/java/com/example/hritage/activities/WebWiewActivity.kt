@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.View
 import android.webkit.*
 import android.widget.ProgressBar
@@ -27,10 +28,9 @@ class WebWiewActivity : AppCompatActivity() {
         webView = findViewById(R.id.web_view_layout)
         val url = intent.getStringExtra(Constant.SEND_LINK_TO_WEB_ACTIVITY)
         Toast.makeText(this, "" + url, Toast.LENGTH_LONG).show()
-
+        webView.settings.javaScriptEnabled = true
         if (url != null) {
             if (url.contains(".pdf")) {
-                webView.settings.javaScriptEnabled = true
                 webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=$url")
             } else {
                 webView.loadUrl(url)
@@ -56,40 +56,43 @@ class WebWiewActivity : AppCompatActivity() {
 
         webView.settings.loadWithOverviewMode = true
         webView.settings.useWideViewPort = true
+        webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
 
-        webView.setDownloadListener { url1, userAgent, contentDisposition, mimeType, contentLength ->
-            val request = DownloadManager.Request(Uri.parse(url1))
-            request.setMimeType(mimeType)
-            //------------------------COOKIE!!------------------------
-            val cookies = CookieManager.getInstance().getCookie(url1)
-            request.addRequestHeader("cookie", cookies)
-            //------------------------COOKIE!!------------------------
-            request.addRequestHeader("User-Agent", userAgent)
-            request.setDescription("Downloading file...")
-            request.setTitle(URLUtil.guessFileName(url1, contentDisposition, mimeType))
-            request.allowScanningByMediaScanner()
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS, URLUtil.guessFileName(url1, contentDisposition, mimeType))
-            val dm = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-            dm.enqueue(request)
-            Toast.makeText(this, "PDF Downloaded", Toast.LENGTH_LONG).show()
+        webView.setDownloadListener { url1, userAgent, contentDisposition, mimeType, _ ->
+            if(url1.contains("blob")){
+                Toast.makeText(this,"Nothing will happen on click it's just a gimmick Web developer's issue" ,
+                    Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Rather take a screenshot and be happy Thank You 😁" ,
+                    Toast.LENGTH_LONG).show()
+            }else {
+                Log.i("Result URl", url1.toString())
+                Toast.makeText(this, "" + url1.toString(), Toast.LENGTH_LONG).show()
+                val request = DownloadManager.Request(Uri.parse(url1))
+                request.setMimeType(mimeType)
+                val cookies = CookieManager.getInstance().getCookie(url1)
+                request.addRequestHeader("cookie", cookies)
+
+                request.addRequestHeader("User-Agent", userAgent)
+                request.setDescription("Downloading file...")
+                request.setTitle(URLUtil.guessFileName(url1, contentDisposition, mimeType))
+                request.allowScanningByMediaScanner()
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+
+                request.setDestinationInExternalPublicDir(
+                    Environment.DIRECTORY_DOCUMENTS,
+                    URLUtil.guessFileName(url1, contentDisposition, mimeType)
+                )
+                val dm = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+                dm.enqueue(request)
+                Toast.makeText(this, "PDF Downloaded", Toast.LENGTH_LONG).show()
+            }
 
         }
 
-
     }
 
-//    private fun savePdfName(pdfName: String) {
-//        val dataBase = DatabaseForFileDataBase.getInstance(this@WebWiewActivity)
-//        if (pdfName.contains("Notice")) {
-//            lifecycleScope.launch {
-//                dataBase.databaseForListDao()
-//                    .insertNote(DocumentLidtClassEntity(0, Constant.NOTICEPDFS, pdfName))
-//            }
-//        }
-//    }
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
        if (webView.canGoBack()){

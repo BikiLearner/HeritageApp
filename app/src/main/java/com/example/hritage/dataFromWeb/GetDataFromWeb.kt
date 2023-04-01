@@ -48,15 +48,17 @@ open class GetDataFromWeb {
                         sortingTheDateOnly.add(it)
                     }
                 }
-                sortingTheNameOnly.forEach {
+                Log.i("dataOfL2", sortingTheDateOnly.distinct().size.toString())
+                Log.i("dataOfL2", sortingTheNameOnly.toString())
+                sortingTheNameOnly.distinct().forEach {
                     element1?.getElementById(it)?.text()?.let { it1 -> list.add(it1) }
 
                 }
                 //GOt the Date Here
-                sortingTheDateOnly.forEach {
+                sortingTheDateOnly.distinct().forEach {
                     element1?.getElementById(it)?.text()?.let { it1 -> list1.add(it1) }
                 }
-                Log.i("dataOfL2", list.distinct().size.toString())
+
                 val element = htmlDoc?.select("a")
                 element?.forEach {
                     list2.add(it.attr("href").toString())
@@ -67,10 +69,11 @@ open class GetDataFromWeb {
                         list3.add(it)
                     }
                 }
-                 model = ListOfDataFromWebModel(list.distinct() as ArrayList<String>, list3,R.drawable.file)//TODO Date
+
+                 model = ListOfDataFromWebModel(list, list3,R.drawable.file,list1)//TODO Date
 
             }else{
-                model= ListOfDataFromWebModel(ArrayList(), ArrayList(), R.drawable.arrow_right)
+                model= ListOfDataFromWebModel(ArrayList(), ArrayList(), R.drawable.arrow_right,ArrayList())
             }
        return model
     }
@@ -89,10 +92,10 @@ open class GetDataFromWeb {
                 list1.add(it.text())
 
             }
-            ListOfDataFromWebModel(list1, list,R.drawable.arrow_right)
+            ListOfDataFromWebModel(list1, list,R.drawable.arrow_right,ArrayList())
 
         }else{
-            ListOfDataFromWebModel(ArrayList(), ArrayList(),R.drawable.arrow_right)
+            ListOfDataFromWebModel(ArrayList(), ArrayList(),R.drawable.arrow_right,ArrayList())
         }
         return model
     }
@@ -111,10 +114,10 @@ open class GetDataFromWeb {
                 list1.add(it.text())
 
             }
-            ListOfDataFromWebModel(list1, list,R.drawable.arrow_right)
+            ListOfDataFromWebModel(list1, list,R.drawable.arrow_right,ArrayList())
 
         }else{
-            ListOfDataFromWebModel(ArrayList(), ArrayList(),R.drawable.arrow_right)
+            ListOfDataFromWebModel(ArrayList(), ArrayList(),R.drawable.arrow_right,ArrayList())
         }
         return model
     }
@@ -134,9 +137,9 @@ open class GetDataFromWeb {
                 list1.add(it.text())
                 list2.add(it.attr("href"))
             }
-            ListOfDataFromWebModel(list1,list2,R.drawable.arrow_right)
+            ListOfDataFromWebModel(list1,list2,R.drawable.arrow_right,ArrayList())
         }else{
-            ListOfDataFromWebModel(ArrayList(), ArrayList(),R.drawable.arrow_right)
+            ListOfDataFromWebModel(ArrayList(), ArrayList(),R.drawable.arrow_right,ArrayList())
         }
         return model
     }
@@ -170,9 +173,40 @@ open class GetDataFromWeb {
                 Log.i("Routine", it)
             }
             Log.i("Span",l2.size.toString())
-            return ListOfDataFromWebModel(l1,l2,R.drawable.arrow_right)
+            return ListOfDataFromWebModel(l1,l2,R.drawable.arrow_right,ArrayList())
         }else{
-            return ListOfDataFromWebModel(ArrayList(),ArrayList(),R.drawable.arrow_right)
+            return ListOfDataFromWebModel(ArrayList(),ArrayList(),R.drawable.arrow_right,ArrayList())
+        }
+    }
+
+    open suspend fun getResultLinksFromWeb():ListOfDataFromWebModel{
+        val retrofit=retrofitObj("https://www.heritageit.edu/ExamCellDetails.aspx")
+        val api = retrofit.create(API1::class.java)
+        val result = api.getPageResponse("https://www.heritageit.edu/ExamCellDetails.aspx")
+        val name=ArrayList<String>()
+        val Links=ArrayList<String>()
+        if(result.isSuccessful && result.body()!=null) {
+            val htmlDoc = result.body()?.let { Jsoup.parse(it) }
+            val element = htmlDoc?.getElementById("GridView2")
+            val element1 = element?.getElementsByTag("span")
+            val element2 = element?.getElementsByTag("a")
+            element1?.forEach {
+                if(it.id().contains("lblHeading")) {
+                    name.add(it.getElementById(it.id())?.text().toString())
+                    Log.i("Result", it.getElementById(it.id())?.text().toString())
+                }
+            }
+            element2?.forEach {
+                if(it.attr("href").toString().contains("http://136.232.2.202")){
+                    Links.add(it.attr("href"))
+                }
+            }
+            Log.i("Result",name.size.toString())
+            Log.i("Result",Links.size.toString())
+            Log.i("Result",Links.toString())
+            return ListOfDataFromWebModel(name,Links,R.drawable.arrow_right,ArrayList())
+        }else{
+            return ListOfDataFromWebModel(ArrayList(),ArrayList(),R.drawable.arrow_right,ArrayList())
         }
     }
 }

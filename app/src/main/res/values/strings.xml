@@ -88,5 +88,6 @@
     <string name="enter_your_college_id">Enter Your College Id</string>
     <string name="enter_your_college_roll">Enter your college Roll</string>
     <string name="enter_your_mobile_number">Enter Your Mobile Number</string>
+    <string name="results_link">Results Link</string>
 
 </resources>

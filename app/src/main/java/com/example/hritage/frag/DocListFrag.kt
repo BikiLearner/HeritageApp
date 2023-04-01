@@ -36,22 +36,24 @@ class DocListFrag : Fragment() {
     private fun allFunctionality(view: View?) {
        val flag= arguments?.getString(Constant.SHAREWITHFRAG,"")
         if(flag!! == Constant.QUICKLIST) {
-            getDataFromJson(view,Constant.QUICKLIST,false)
+            getDataFromJson(view,Constant.QUICKLIST,0)
             Toast.makeText(context,"InsideQlist",Toast.LENGTH_LONG).show()
         }else if (flag == Constant.NOTICEPDFS){
-            getDataFromJson(view,Constant.NOTICEPDFS,false)
+            getDataFromJson(view,Constant.NOTICEPDFS,0)
             Toast.makeText(context,"InsideQlis3r32r2t",Toast.LENGTH_LONG).show()
         }else if (flag==Constant.DOWNLOADLIST){
-            getDataFromJson(view,Constant.DOWNLOADLIST,false)
+            getDataFromJson(view,Constant.DOWNLOADLIST,0)
         }else if (flag == Constant.LIBRARYLIST){
-            getDataFromJson(view,Constant.LIBRARYLIST,true)
+            getDataFromJson(view,Constant.LIBRARYLIST,2)
+        }else if(flag==Constant.RESULTLINKS){
+            getDataFromJson(view,Constant.RESULTLINKS,2)
         }
         else{
-            getDataFromJson(view,"",false)
+            getDataFromJson(view,"",2)
         }
 
     }
-    private fun getDataFromJson(view: View?, jsonKey: String,normalLink:Boolean) {
+    private fun getDataFromJson(view: View?, jsonKey: String,normalLink:Int) {
        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val gson = Gson()
         object : TypeToken<ArrayList<String>>() {}.type

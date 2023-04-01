@@ -11,7 +11,6 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
@@ -25,12 +24,9 @@ import com.example.hritage.Constant
 import com.example.hritage.R
 import com.example.hritage.databinding.ActivityProfileBinding
 import com.example.hritage.model.TheProfileModel
-import com.example.hritage.model.profileModel
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.gson.Gson
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -41,9 +37,7 @@ import java.io.IOException
 
 
 open class Profile : AppCompatActivity() {
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: ActivityProfileBinding
-    private lateinit var jsonObject:profileModel
     private lateinit var theUri:Uri
     private lateinit var showContentDialog: Dialog
 
@@ -102,58 +96,6 @@ open class Profile : AppCompatActivity() {
         }
     }
 
-    private fun getDataFromJson() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val gson = Gson()
-        val json: String? = sharedPreferences.getString(Constant.GETDATAANDSAVE, "")
-
-
-        if(json!=null){
-            if (json.isNotEmpty()){
-                val obj: profileModel = gson.fromJson(json, profileModel::class.java)
-                setTheDataToTheView(obj)
-                jsonObject=obj
-
-            }
-        }
-    }
-
-    private fun setTheDataToTheView(obj: profileModel) {
-        binding.toolBarTvName.text=obj.name
-        binding.toolBarTvEmail.text=obj.email
-        binding.nameTextView.text=obj.name
-        binding.moblieNoTextView.text=obj.phoneNumber
-        binding.emailTextView.text=obj.email
-        binding.addressTextView.text=obj.address
-
-        binding.dobTextView.text=obj.dateOfBirth
-        binding.collegeRollTextView.text=obj.collegeRoll
-        binding.collegeIDTextView.text=obj.collegeID
-//        binding.profileImage.setImageBitmap(obj.defaultProfile)
-
-        binding.logOutBtn.setOnClickListener {
-//            dataShave(Constant.PROFILEFLAG, 0)
-            val auth=FirebaseAuth.getInstance()
-            auth.signOut()
-            if(auth.currentUser==null) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
-        binding.backToHomeButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        binding.profileImage.setOnClickListener {
-            setImageOnFrameFunction()
-        }
-        binding.editProfileBtn.setOnClickListener {
-            showTheContentOfItemClicked()
-        }
-
-    }
     private fun setTheDataToTheView1(obj: TheProfileModel, email: String) {
         binding.toolBarTvName.text=obj.name
         binding.toolBarTvEmail.text=email
@@ -161,15 +103,16 @@ open class Profile : AppCompatActivity() {
         binding.moblieNoTextView.text=obj.phoneNumber
         binding.emailTextView.text=email
         binding.addressTextView.text=obj.address
-        binding.profileImage.setImageURI(obj.uri.toUri())
-        Toast.makeText(this,""+obj.uri,Toast.LENGTH_LONG).show()
+        if(obj.uri.isEmpty()){
+            binding.profileImage.setImageResource(R.drawable.profile)
+        }else {
+            binding.profileImage.setImageURI(obj.uri.toUri())
+            Toast.makeText(this, "" + obj.uri, Toast.LENGTH_LONG).show()
+        }
 
         binding.dobTextView.text=obj.dateOfBirth
         binding.collegeRollTextView.text=obj.collegeRoll
         binding.collegeIDTextView.text=obj.collegeID
-//        binding.profileImage.setImageBitmap(obj.defaultProfile)
-
-
 
     }
     private fun toSaveToClipBoard(){
@@ -195,11 +138,6 @@ open class Profile : AppCompatActivity() {
         Toast.makeText(this,""+text+"is Copied",Toast.LENGTH_LONG).show()
         val clip = ClipData.newPlainText("label",text)
         clipboard.setPrimaryClip(clip)
-    }
-    private fun dataShave(Key:String,data:Int){
-        val myEdit=sharedPreferences.edit()
-        myEdit.putInt(Key, data)
-        myEdit.apply()
     }
 
     open fun setImageOnFrameFunction() {
@@ -329,9 +267,8 @@ open class Profile : AppCompatActivity() {
                         theUri=contentUri!!
                         showContentDialog.findViewById<CircleImageView>(R.id.profile_image_setUp)
                             .setImageURI(theUri)
-                        val selectedImageBitmap=
-                            MediaStore.Images.Media.getBitmap(this.contentResolver,contentUri)
-                        binding.profileImage.setImageBitmap(selectedImageBitmap)
+
+                        binding.profileImage.setImageURI(theUri)
 
                     }catch (e: IOException){
                         e.printStackTrace()
@@ -346,8 +283,8 @@ open class Profile : AppCompatActivity() {
                 theUri=data!!.data!!
                 showContentDialog.findViewById<CircleImageView>(R.id.profile_image_setUp)
                     .setImageURI(theUri)
-                val cameraImg: Bitmap = data.extras!!.get("data") as Bitmap
-                binding.profileImage.setImageBitmap(cameraImg)
+
+                binding.profileImage.setImageURI(theUri)
 
             }
         }
@@ -450,6 +387,14 @@ open class Profile : AppCompatActivity() {
                     )
                     setTheDataToTheView1(model,auth.currentUser!!.email.toString())
                     binding.progressBarCircularTv.visibility=View.GONE
+                    binding.editProfileBtn.setImageResource(R.drawable.baseline_edit_24)
+                    changeTHeVisibility(false)
+                }else{
+                    val model=TheProfileModel("Set Up Profile","","","",""
+                        ,"","")
+                    setTheDataToTheView1(model,auth.currentUser!!.email.toString())
+                    binding.progressBarCircularTv.visibility=View.GONE
+                    binding.editProfileBtn.setImageResource(R.drawable.baseline_add_circle_outline_24)
                     changeTHeVisibility(false)
                 }
             }else{
