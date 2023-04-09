@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hritage.BuildConfig
 import com.example.hritage.ExtraClass.Message
 import com.example.hritage.R
 import com.example.hritage.adapters.MessageAdapter
@@ -24,13 +25,16 @@ import java.util.concurrent.TimeUnit
 
 
 class ChatGpts : AppCompatActivity() {
-    private val apiKey = "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"
     private var recyclerView: RecyclerView? = null
     private var welcomeTextView: TextView? = null
     private var messageEditText: EditText? = null
     private var sendButton: ImageButton? = null
     private var messageList: ArrayList<Message>? = null
     private var messageAdapter: MessageAdapter? = null
+    val apiKey = BuildConfig.API_KEY
+
+
+
     private val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
     private var client =OkHttpClient.Builder()
         .connectTimeout(60, TimeUnit.SECONDS) // Set the connection timeout to 60 seconds
@@ -38,7 +42,6 @@ class ChatGpts : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_gpt)
-
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
@@ -100,7 +103,7 @@ class ChatGpts : AppCompatActivity() {
         val body: RequestBody =RequestBody.create(JSON,jsonBody.toString())
         val request = Request.Builder()
             .url("https://api.openai.com/v1/completions")
-            .header("Authorization", "Bearer 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")
+            .header("Authorization", "Bearer $apiKey")
             .post(body)
             .build()
 
