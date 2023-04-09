@@ -12,6 +12,7 @@ object Constant {
     const val GALLERY=1
     const val  CAMERA=2
     const val SAVETHEPROFILEIMAGE="save the profile image"
+    const val SHAREPROFILEIMAGE="save the profile image"
     const val LIBRARYLIST="list of library data"
     const val ROUTINELIST="list of routine"
     const val RESULTLINKS="Result links"

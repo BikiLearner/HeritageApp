@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.*
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -52,7 +51,7 @@ open class Profile : AppCompatActivity() {
             binding.progressBarCircularTv.visibility=View.VISIBLE
             toSaveToClipBoard()
             buttonFunctionality()
-            getUserDataFromFirebase()
+            getUserDataFromFirebase(false)
 
 
         } else {
@@ -92,10 +91,21 @@ open class Profile : AppCompatActivity() {
             setImageOnFrameFunction()
         }
         binding.editProfileBtn.setOnClickListener {
+            getUserDataFromFirebase(true)
             showTheContentOfItemClicked()
         }
     }
+    private fun setPreviousDataToEditDialog(obj: TheProfileModel){
+            showContentDialog.findViewById<EditText>(R.id.edit_text_name).setText(obj.name)
+            showContentDialog.findViewById<EditText>(R.id.edit_text_mobile_no).setText(obj.phoneNumber)
+            showContentDialog.findViewById<EditText>(R.id.edit_text_address).setText(obj.address)
+            showContentDialog.findViewById<EditText>(R.id.edit_text_dob).setText(obj.dateOfBirth)
+            showContentDialog.findViewById<EditText>(R.id.edit_text_roll).setText(obj.collegeRoll)
+            showContentDialog.findViewById<EditText>(R.id.edit_text_id).setText(obj.collegeID)
+            showContentDialog.findViewById<CircleImageView>(R.id.profile_image_setUp).setImageURI(obj.uri.toUri())
+            theUri=obj.uri.toUri()
 
+    }
     private fun setTheDataToTheView1(obj: TheProfileModel, email: String) {
         binding.toolBarTvName.text=obj.name
         binding.toolBarTvEmail.text=email
@@ -269,6 +279,7 @@ open class Profile : AppCompatActivity() {
                             .setImageURI(theUri)
 
                         binding.profileImage.setImageURI(theUri)
+                        saveImageToSharedPreference(theUri.toString())
 
                     }catch (e: IOException){
                         e.printStackTrace()
@@ -285,6 +296,7 @@ open class Profile : AppCompatActivity() {
                     .setImageURI(theUri)
 
                 binding.profileImage.setImageURI(theUri)
+                saveImageToSharedPreference(theUri.toString())
 
             }
         }
@@ -353,7 +365,7 @@ open class Profile : AppCompatActivity() {
                         if (it.isSuccessful) {
                             Toast.makeText(this, "Ur profile is updated", Toast.LENGTH_LONG).show()
                             showContentDialog.dismiss()
-                            getUserDataFromFirebase()
+                            getUserDataFromFirebase(false)
                         } else {
                             Toast.makeText(
                                 this,
@@ -367,7 +379,7 @@ open class Profile : AppCompatActivity() {
 
             }
     }
-    private fun getUserDataFromFirebase(){
+    private fun getUserDataFromFirebase(editIT:Boolean){
         val auth=FirebaseAuth.getInstance()
         val uid=auth.currentUser?.uid
         val databaseReference= FirebaseDatabase.getInstance().getReference("Users")
@@ -386,6 +398,9 @@ open class Profile : AppCompatActivity() {
                         snapshot.child("uri").value.toString(),
                     )
                     setTheDataToTheView1(model,auth.currentUser!!.email.toString())
+                    if(editIT) {
+                        setPreviousDataToEditDialog(model)
+                    }
                     binding.progressBarCircularTv.visibility=View.GONE
                     binding.editProfileBtn.setImageResource(R.drawable.baseline_edit_24)
                     changeTHeVisibility(false)
@@ -426,5 +441,13 @@ open class Profile : AppCompatActivity() {
             // else return false
             else -> false
         }
+    }
+
+    private fun saveImageToSharedPreference(uri:String){
+        val sharedPrefs = getSharedPreferences(Constant.SHAREPROFILEIMAGE, Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.putString(Constant.SAVETHEPROFILEIMAGE, uri)
+        editor.apply()
+
     }
 }

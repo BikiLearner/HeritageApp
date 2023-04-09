@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         toolBarFunctio()
         buttomNavBar()
+
         loadFragment(HomeScreenFragment(), 0, false, "")
 //        profileCode()
         checkLoginStatus()
@@ -54,7 +55,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Please Turn On Internet Connection", Toast.LENGTH_LONG).show()
         }
-
+    binding?.chatGptBtn?.setOnClickListener {
+        Toast.makeText(this, "Hello", Toast.LENGTH_LONG).show()
+        val intent = Intent(this@MainActivity,ChatGpts::class.java)
+        startActivity(intent)
+    }
 
     }
 
@@ -70,10 +75,16 @@ class MainActivity : AppCompatActivity() {
     private fun checkLoginStatus(){
         val auth=FirebaseAuth.getInstance()
         if(auth.currentUser!=null){
-            if (isUsingNightModeResources()) {
-                binding?.profileButton?.setImageResource(R.drawable.profile_night)
-            } else {
-                binding?.profileButton?.setImageResource(R.drawable.profile)
+            val sharedPrefs = getSharedPreferences(Constant.SHAREPROFILEIMAGE, Context.MODE_PRIVATE)
+            val myValue = sharedPrefs.getString(Constant.SAVETHEPROFILEIMAGE, "")
+            if(myValue!!.isEmpty()) {
+                if (isUsingNightModeResources()) {
+                    binding?.profileButton?.setImageResource(R.drawable.profile_night)
+                } else {
+                    binding?.profileButton?.setImageResource(R.drawable.profile)
+                }
+            }else{
+                binding?.profileButton?.setImageURI(myValue.toUri())
             }
             binding?.profileButton?.setOnClickListener {
                 val intent = Intent(this@MainActivity, Profile::class.java)

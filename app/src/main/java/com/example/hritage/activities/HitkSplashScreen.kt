@@ -45,7 +45,7 @@ class HitkSplashScreen : AppCompatActivity() {
              * The action to be performed by this timer task.
              */
             override fun run() {
-                val intent=Intent(this@HitkSplashScreen,MainActivity::class.java)
+                val intent=Intent(this@HitkSplashScreen, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

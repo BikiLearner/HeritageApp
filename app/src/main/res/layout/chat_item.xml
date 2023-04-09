@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/left_chat_view"
+        android:padding="8dp"
+        android:layout_marginEnd="80dp"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_marginEnd="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1E88E5"
+            android:background="@drawable/rounded_corner">
+            <TextView
+                tools:text="dfafdsafdsffffdfdsfdsffadsfdasfdsfsdfds"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/left_chat_text_view"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+        <ImageButton
+            android:id="@+id/clipboard_of_textview_chat_bot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_content_copy_24"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/right_chat_view"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#7CB342"
+        android:padding="8dp"
+        android:layout_marginStart="80dp"
+        android:orientation="vertical"
+        >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/right_chat_text_view"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

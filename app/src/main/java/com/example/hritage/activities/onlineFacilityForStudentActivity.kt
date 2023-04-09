@@ -60,7 +60,7 @@ class onlineFacilityForStudentActivity : AppCompatActivity() {
         }
     }
     private fun openInWebActivity(url:String){
-        val intent= Intent(this,WebWiewActivity::class.java)
+        val intent= Intent(this, WebWiewActivity::class.java)
         intent.putExtra(Constant.SEND_LINK_TO_WEB_ACTIVITY,url)
         startActivity(intent)
     }

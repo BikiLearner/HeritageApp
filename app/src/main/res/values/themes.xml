@@ -175,4 +175,8 @@
     <style name="Edit_Text_Color">
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="message_button_day_night">
+        <item name="android:src">@drawable/baseline_chat_bubble_outline_24</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
 </resources>

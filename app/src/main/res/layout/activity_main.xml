@@ -31,13 +31,22 @@
             style="@style/Tool_Bar_Bacground_colour"
             app:layout_constraintTop_toTopOf="parent"
             >
-            <ImageButton
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 style="@style/image_button_style"
                 android:layout_gravity="end"
                 android:layout_marginEnd="20dp"/>
+            <ImageButton
+                android:id="@+id/chat_gpt_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                style="@style/message_button_day_night"/>
+
         </androidx.appcompat.widget.Toolbar>
         <ProgressBar
             android:id="@+id/dataFromWeb"

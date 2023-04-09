@@ -90,4 +90,7 @@
     <string name="enter_your_mobile_number">Enter Your Mobile Number</string>
     <string name="results_link">Results Link</string>
 
+    <string name="API_KEY">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</string>
+    <string name="write_here">Write here</string>
+
 </resources>
